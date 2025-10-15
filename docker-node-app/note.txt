@@ -1,0 +1,8 @@
+| docker build -t <name> . | สร้าง image จาก Dockerfile |
+docker build -t docker-node-app .
+
+ตัวอย่าง เวอร์ชั่น
+docker build -t docker-node-app:v1.0 .
+
+                                    ชื่อที่จะตั้ง      image ที่เรามี
+docker run -d -p 3300:3000 --name mydockerapp docker-node-app
