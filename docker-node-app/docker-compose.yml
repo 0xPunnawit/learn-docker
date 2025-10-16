@@ -1,0 +1,40 @@
+networks:
+  nodejs_network:
+    name: nodejs_network
+    driver: bridge
+
+services:
+  nodejs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      tags:
+        - "mynodeapp:1.0"
+    container_name: mynodeapp
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+    networks:
+      - nodejs_network
+    restart: always
+
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "28017:27017"
+    networks:
+      - nodejs_network
+    restart: always
+    volumes:
+      - mongdo_data:/data/db
+
+volumes:
+  mongdo_data:
+    name: mongdo_data
+    driver: local
